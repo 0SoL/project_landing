@@ -1,0 +1,41 @@
+<header class="site-header" id="site-header">
+  <div class="container site-header__inner">
+    <a href="{{ url('core:home') }}" class="site-header__logo" aria-label="{{ _('РЖД-Инфра Казахстан — на главную') }}">
+      <span class="logo__text">Конкурент-Б</span>
+      <span class="logo__sub">{{ _('Казахстан') }}</span>
+    </a>
+
+    <nav class="site-nav" data-nav aria-label="{{ _('Основная навигация') }}">
+      <ul class="site-nav__list">
+        <li><a href="{{ url('services:list') }}" class="site-nav__link">{{ _('Услуги') }}</a></li>
+        <li><a href="{{ url('projects:list') }}" class="site-nav__link">{{ _('Проекты') }}</a></li>
+        <li><a href="{{ url('equipment:list') }}" class="site-nav__link">{{ _('Техника') }}</a></li>
+        <li><a href="{{ url('core:about') }}" class="site-nav__link">{{ _('О компании') }}</a></li>
+        <li><a href="{{ url('articles:news_list') }}" class="site-nav__link">{{ _('Новости') }}</a></li>
+      </ul>
+    </nav>
+
+    <div class="site-header__right">
+      <form action="{{ url('set_language') }}" method="post" class="lang-switcher">
+        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+        <input name="next" type="hidden" value="{{ request.path }}">
+        <button type="submit" name="language" value="ru"
+          class="lang-switcher__btn{% if get_language() == 'ru' %} lang-switcher__btn--active{% endif %}">
+          RU
+        </button>
+        <button type="submit" name="language" value="en"
+          class="lang-switcher__btn{% if get_language() == 'en' %} lang-switcher__btn--active{% endif %}">
+          EN
+        </button>
+      </form>
+
+      <a href="{{ url('core:contacts') }}" class="btn btn--accent site-header__cta">{{ _('Связаться') }}</a>
+    </div>
+
+    <button class="burger" data-menu-toggle aria-expanded="false" aria-controls="site-nav" aria-label="{{ _('Открыть меню') }}">
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+      <span class="burger__line"></span>
+    </button>
+  </div>
+</header>

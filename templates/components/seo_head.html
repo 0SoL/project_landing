@@ -1,0 +1,20 @@
+<title>{{ meta_title }} | РЖД-Инфра Казахстан</title>
+<meta name="description" content="{{ meta_description }}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{{ request.build_absolute_uri() }}">
+<meta name="ai-content-purpose" content="B2B industrial services, railway infrastructure Kazakhstan">
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ meta_title }}">
+<meta property="og:description" content="{{ meta_description }}">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="{{ 'en_US' if get_language() == 'en' else 'ru_KZ' }}">
+<meta property="og:site_name" content="РЖД-Инфра Казахстан">
+{% if og_image %}
+<meta property="og:image" content="{{ og_image }}">
+{% endif %}
+
+<!-- Structured Data -->
+{% if schema_json %}
+<script type="application/ld+json">{{ schema_json | safe }}</script>
+{% endif %}
