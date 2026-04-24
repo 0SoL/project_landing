@@ -23,7 +23,7 @@
   text-transform: uppercase;
   opacity: 0.45;
   transition: opacity 0.2s ease;
-  color: inherit;
+  color: var(--color-surface);
   line-height: 1.4;
 }
 
