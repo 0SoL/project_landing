@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from .models import Article, ArticleCategory
-from apps.seo.jsonld import article_schema, to_json
+from apps.seo.jsonld import article_schema, breadcrumb_schema, to_json
 
 CATEGORY_META = {
     'novosti': {
@@ -37,10 +38,20 @@ def article_list(request, category_slug):
 
 def article_detail(request, slug):
     article = get_object_or_404(Article, slug=slug, is_published=True)
+    crumbs = [
+        ('Главная', reverse('core:home')),
+        (article.category.name, reverse('articles:news_list')),
+        (article.title, None),
+    ]
+    schemas = [
+        article_schema(article, request),
+        breadcrumb_schema(request, crumbs),
+    ]
     context = {
         'article': article,
         'meta_title': article.meta_title or article.title,
         'meta_description': article.meta_description or article.excerpt,
-        'schema_json': to_json(article_schema(article)),
+        'schema_json': to_json(schemas),
+        'og_image': request.build_absolute_uri(article.cover_image.url) if article.cover_image else None,
     }
     return render(request, 'articles/detail.html', context)
