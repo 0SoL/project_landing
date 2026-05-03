@@ -1,4 +1,5 @@
 from django.contrib import admin
+from parler.admin import TranslatableAdmin
 from unfold.admin import ModelAdmin
 from .models import CompanyStats, FAQItem, ContactInquiry
 
@@ -13,17 +14,13 @@ class CompanyStatsAdmin(ModelAdmin):
 
 
 @admin.register(FAQItem)
-class FAQItemAdmin(ModelAdmin):
+class FAQItemAdmin(TranslatableAdmin, ModelAdmin):
     list_display = ['question', 'order', 'is_published']
     list_editable = ['order', 'is_published']
-    search_fields = ['question', 'answer']
+    search_fields = ['translations__question', 'translations__answer']
     fieldsets = [
         ('Основное', {
             'fields': ['question', 'answer', 'order', 'is_published'],
-        }),
-        ('English (EN)', {
-            'fields': ['question_en', 'answer_en'],
-            'classes': ['collapse'],
         }),
     ]
 

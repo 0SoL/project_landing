@@ -13,20 +13,20 @@
   <div class="container">
     {% for category in categories %}
     <div class="equipment-category">
-      <h2 class="equipment-category__title">{{ category.name_en if get_language() == 'en' and category.name_en else category.name }}</h2>
+      <h2 class="equipment-category__title">{{ category.name }}</h2>
       <div class="equipment-grid">
         {% for item in category.items.filter(is_published=True).order_by('order') %}
         <article class="equipment-card">
           {% if item.image %}
           <div class="equipment-card__img-wrap">
-            <img src="{{ item.image.url }}" alt="{{ item.name_en if get_language() == 'en' and item.name_en else item.name }}" loading="lazy" class="equipment-card__img">
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" loading="lazy" class="equipment-card__img">
           </div>
           {% endif %}
           <div class="equipment-card__body">
-            <h3 class="equipment-card__name">{{ item.name_en if get_language() == 'en' and item.name_en else item.name }}</h3>
-            <p class="equipment-card__purpose">{{ item.purpose_en if get_language() == 'en' and item.purpose_en else item.purpose }}</p>
+            <h3 class="equipment-card__name">{{ item.name }}</h3>
+            <p class="equipment-card__purpose">{{ item.purpose }}</p>
             {% if item.application %}
-            <p class="equipment-card__application"><strong>{{ _('Применение:') }}</strong> {{ item.application_en if get_language() == 'en' and item.application_en else item.application }}</p>
+            <p class="equipment-card__application"><strong>{{ _('Применение:') }}</strong> {{ item.application }}</p>
             {% endif %}
             {% if item.specifications %}
             <details class="equipment-specs">

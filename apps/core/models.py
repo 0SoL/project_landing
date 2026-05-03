@@ -1,4 +1,5 @@
 from django.db import models
+from parler.models import TranslatableModel, TranslatedFields
 
 
 class CompanyStats(models.Model):
@@ -27,11 +28,11 @@ class CompanyStats(models.Model):
         return 'Показатели компании'
 
 
-class FAQItem(models.Model):
-    question = models.CharField(max_length=500, verbose_name='Вопрос')
-    question_en = models.CharField(max_length=500, blank=True, verbose_name='Вопрос (EN)')
-    answer = models.TextField(verbose_name='Ответ')
-    answer_en = models.TextField(blank=True, verbose_name='Ответ (EN)')
+class FAQItem(TranslatableModel):
+    translations = TranslatedFields(
+        question=models.CharField(max_length=500, verbose_name='Вопрос'),
+        answer=models.TextField(verbose_name='Ответ'),
+    )
     order = models.PositiveIntegerField(default=0, verbose_name='Порядок')
     is_published = models.BooleanField(default=True, verbose_name='Опубликован')
 
@@ -41,7 +42,7 @@ class FAQItem(models.Model):
         verbose_name_plural = 'FAQ вопросы'
 
     def __str__(self):
-        return self.question
+        return self.safe_translation_getter('question', any_language=True) or f'FAQ #{self.pk}'
 
 
 class ContactInquiry(models.Model):

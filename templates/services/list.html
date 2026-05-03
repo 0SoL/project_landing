@@ -13,12 +13,12 @@
   <div class="container">
     {% for category in categories %}
     <div class="services-category" id="{{ category.slug }}">
-      <h2 class="services-category__title">{{ category.name_en if get_language() == 'en' and category.name_en else category.name }}</h2>
+      <h2 class="services-category__title">{{ category.name }}</h2>
       <div class="services-grid">
         {% for service in category.services.filter(is_published=True).order_by('order') %}
         <article class="service-item">
-          <h3 class="service-item__title">{{ service.title_en if get_language() == 'en' and service.title_en else service.title }}</h3>
-          <p class="service-item__desc">{{ service.short_description_en if get_language() == 'en' and service.short_description_en else service.short_description }}</p>
+          <h3 class="service-item__title">{{ service.title }}</h3>
+          <p class="service-item__desc">{{ service.short_description }}</p>
           <a href="{{ url('services:detail', slug=service.slug) }}" class="service-item__link">{{ _('Подробнее') }} →</a>
         </article>
         {% endfor %}

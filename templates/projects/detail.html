@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% set breadcrumbs = [{'title': _('Проекты'), 'url': url('projects:list')}, {'title': project.title_en if get_language() == 'en' and project.title_en else project.title, 'url': None}] %}
+{% set breadcrumbs = [{'title': _('Проекты'), 'url': url('projects:list')}, {'title': project.title, 'url': None}] %}
 {% include 'components/breadcrumbs.html' %}
 
 <article class="project-detail">
@@ -11,7 +11,7 @@
     <div class="page-hero__overlay"></div>
     <div class="container">
       <span class="project-card__badge">{{ project.get_client_type_display() }}</span>
-      <h1 class="page-hero__title">{{ project.title_en if get_language() == 'en' and project.title_en else project.title }}</h1>
+      <h1 class="page-hero__title">{{ project.title }}</h1>
       <div class="project-detail__meta">
         <span>{{ project.location }}</span>
         <span>{{ project.year }} {{ _('год') }}</span>
@@ -31,17 +31,17 @@
     <div class="project-story">
       <section class="project-story__section">
         <h2 class="project-story__label">{{ _('Задача') }}</h2>
-        <p class="project-story__text">{{ project.task_en if get_language() == 'en' and project.task_en else project.task }}</p>
+        <p class="project-story__text">{{ project.task }}</p>
       </section>
 
       <section class="project-story__section">
         <h2 class="project-story__label">{{ _('Решение') }}</h2>
-        <p class="project-story__text">{{ project.solution_en if get_language() == 'en' and project.solution_en else project.solution }}</p>
+        <p class="project-story__text">{{ project.solution }}</p>
       </section>
 
       <section class="project-story__section">
         <h2 class="project-story__label">{{ _('Результат') }}</h2>
-        <p class="project-story__text">{{ project.result_en if get_language() == 'en' and project.result_en else project.result }}</p>
+        <p class="project-story__text">{{ project.result }}</p>
       </section>
     </div>
 
@@ -86,7 +86,7 @@
       <div class="gallery-grid">
         {% for img in images %}
         <div class="gallery-item">
-          <img src="{{ img.image.url }}" alt="{{ img.alt_text or (project.title_en if get_language() == 'en' and project.title_en else project.title) }}" loading="lazy" class="gallery-item__img">
+          <img src="{{ img.image.url }}" alt="{{ img.alt_text or (project.title) }}" loading="lazy" class="gallery-item__img">
         </div>
         {% endfor %}
       </div>

@@ -1,4 +1,5 @@
 from django.contrib import admin
+from parler.admin import TranslatableAdmin
 from unfold.admin import ModelAdmin, TabularInline
 from .models import Project, ProjectImage
 
@@ -10,26 +11,24 @@ class ProjectImageInline(TabularInline):
 
 
 @admin.register(Project)
-class ProjectAdmin(ModelAdmin):
+class ProjectAdmin(TranslatableAdmin, ModelAdmin):
     list_display = ['title', 'client_type', 'year', 'location', 'is_featured', 'is_published', 'order']
     list_editable = ['is_featured', 'is_published', 'order']
     list_filter = ['client_type', 'is_published', 'is_featured', 'year']
-    search_fields = ['title', 'client', 'location']
-    prepopulated_fields = {'slug': ('title',)}
+    search_fields = ['translations__title', 'client', 'translations__location']
     inlines = [ProjectImageInline]
     fieldsets = [
         ('Основное', {
-            'fields': ['title', 'slug', 'client', 'client_type', 'year', 'location', 'cover_image'],
+            'fields': ['title', 'slug', 'client', 'client_type', 'year', 'cover_image'],
         }),
         ('Описание проекта', {
             'fields': ['task', 'solution', 'result'],
         }),
-        ('English (EN)', {
-            'fields': ['title_en', 'task_en', 'solution_en', 'result_en'],
-            'classes': ['collapse'],
+        ('Локация и бюджет', {
+            'fields': ['location', 'budget_display'],
         }),
         ('Параметры', {
-            'fields': ['track_length_km', 'switches_count', 'duration_months', 'budget_display'],
+            'fields': ['track_length_km', 'switches_count', 'duration_months'],
         }),
         ('SEO', {
             'fields': ['meta_title', 'meta_description'],

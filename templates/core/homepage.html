@@ -43,10 +43,10 @@
     <div class="services-overview__grid">
       {% for cat in service_categories %}
       <div class="service-card">
-        <h3 class="service-card__title">{{ cat.name_en if get_language() == 'en' and cat.name_en else cat.name }}</h3>
+        <h3 class="service-card__title">{{ cat.name }}</h3>
         <ul class="service-card__list">
           {% for svc in cat.services.all()[:3] %}
-          <li><a href="{{ url('services:detail', slug=svc.slug) }}">{{ svc.title_en if get_language() == 'en' and svc.title_en else svc.title }}</a></li>
+          <li><a href="{{ url('services:detail', slug=svc.slug) }}">{{ svc.title }}</a></li>
           {% endfor %}
         </ul>
         <a href="{{ url('services:list') }}" class="service-card__link">{{ _('Подробнее') }} →</a>
@@ -66,12 +66,12 @@
       <article class="project-card">
         {% if project.cover_image %}
         <div class="project-card__img-wrap">
-          <img src="{{ project.cover_image.url }}" alt="{{ project.title_en if get_language() == 'en' and project.title_en else project.title }}" loading="lazy" class="project-card__img">
+          <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" loading="lazy" class="project-card__img">
         </div>
         {% endif %}
         <div class="project-card__body">
           <span class="project-card__badge">{{ project.get_client_type_display() }}</span>
-          <h3 class="project-card__title">{{ project.title_en if get_language() == 'en' and project.title_en else project.title }}</h3>
+          <h3 class="project-card__title">{{ project.title }}</h3>
           <p class="project-card__meta">{{ project.location }}, {{ project.year }}</p>
           {% if project.track_length_km %}
           <p class="project-card__stat"><span class="mono">{{ project.track_length_km }}</span> {{ _('км пути') }}</p>
@@ -161,11 +161,11 @@
       <article class="news-card">
         {% if article.cover_image %}
         <div class="news-card__img-wrap">
-          <img src="{{ article.cover_image.url }}" alt="{{ article.title_en if get_language() == 'en' and article.title_en else article.title }}" loading="lazy" class="news-card__img">
+          <img src="{{ article.cover_image.url }}" alt="{{ article.title }}" loading="lazy" class="news-card__img">
         </div>
         {% endif %}
         <h3 class="news-card__title">
-          <a href="{{ url('articles:detail', slug=article.slug) }}">{{ article.title_en if get_language() == 'en' and article.title_en else article.title }}</a>
+          <a href="{{ url('articles:detail', slug=article.slug) }}">{{ article.title }}</a>
         </h3>
       </article>
       {% endfor %}
