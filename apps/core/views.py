@@ -21,7 +21,7 @@ def homepage(request):
         'latest_news': latest_news,
         'meta_title': 'Строительство и реконструкция железных дорог в Казахстане',
         'meta_description': 'Проектирование, строительство и реконструкция железнодорожных путей для промышленных предприятий, портов и терминалов Казахстана. Более 15 лет опыта.',
-        'schema_json': to_json(organization_schema()),
+        'schema_json': to_json(organization_schema(request)),
         'page_id': 'home',
     }
     return render(request, 'core/homepage.html', context)
@@ -33,7 +33,7 @@ def about(request):
         'stats': stats,
         'meta_title': 'О компании — РЖД-Инфра Казахстан',
         'meta_description': 'Казахстанская компания по строительству и реконструкции железнодорожных путей. Работаем с промышленными предприятиями, портами и логистическими терминалами.',
-        'schema_json': to_json(organization_schema()),
+        'schema_json': to_json(organization_schema(request)),
     }
     return render(request, 'core/about.html', context)
 

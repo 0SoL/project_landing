@@ -22,9 +22,22 @@ def environment(**options):
         'url': url,
         'now': datetime.now,
         'get_language': get_language,
+        'alternate_url': alternate_url,
     })
     return env
 
 
 def url(name, **kwargs):
     return reverse(name, kwargs=kwargs)
+
+
+def alternate_url(request, lang):
+    """Return the absolute URL of the current page switched to the given language."""
+    from django.conf import settings
+    path = request.path
+    # With prefix_default_language=True all paths start with /<lang>/
+    for code, _ in settings.LANGUAGES:
+        prefix = f'/{code}/'
+        if path.startswith(prefix):
+            return request.build_absolute_uri(f'/{lang}/' + path[len(prefix):])
+    return request.build_absolute_uri(f'/{lang}/')

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from .models import Project
-from apps.seo.jsonld import project_schema, to_json
+from apps.seo.jsonld import project_schema, breadcrumb_schema, to_json
 
 
 def project_list(request):
@@ -21,11 +22,21 @@ def project_list(request):
 def project_detail(request, slug):
     project = get_object_or_404(Project, slug=slug, is_published=True)
     images = project.images.all()
+    crumbs = [
+        ('Главная', reverse('core:home')),
+        ('Проекты', reverse('projects:list')),
+        (project.title, None),
+    ]
+    schemas = [
+        project_schema(project, request),
+        breadcrumb_schema(request, crumbs),
+    ]
     context = {
         'project': project,
         'images': images,
         'meta_title': project.meta_title or project.title,
         'meta_description': project.meta_description or project.task[:160],
-        'schema_json': to_json(project_schema(project)),
+        'schema_json': to_json(schemas),
+        'og_image': request.build_absolute_uri(project.cover_image.url) if project.cover_image else None,
     }
     return render(request, 'projects/detail.html', context)
