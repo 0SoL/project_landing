@@ -3,7 +3,7 @@
 {% block content %}
 <section class="page-hero">
   <div class="container">
-    <h1 class="page-hero__title">{{ category.name_en if get_language() == 'en' and category.name_en else category.name }}</h1>
+    <h1 class="page-hero__title">{{ category.name }}</h1>
   </div>
 </section>
 
@@ -14,7 +14,7 @@
       <article class="article-card">
         {% if article.cover_image %}
         <div class="article-card__img-wrap">
-          <img src="{{ article.cover_image.url }}" alt="{{ article.title_en if get_language() == 'en' and article.title_en else article.title }}" loading="lazy" class="article-card__img">
+          <img src="{{ article.cover_image.url }}" alt="{{ article.title }}" loading="lazy" class="article-card__img">
         </div>
         {% endif %}
         <div class="article-card__body">
@@ -22,9 +22,9 @@
             {{ article.published_at.strftime('%d.%m.%Y') }}
           </time>
           <h2 class="article-card__title">
-            <a href="{{ url('articles:detail', slug=article.slug) }}">{{ article.title_en if get_language() == 'en' and article.title_en else article.title }}</a>
+            <a href="{{ url('articles:detail', slug=article.slug) }}">{{ article.title }}</a>
           </h2>
-          <p class="article-card__excerpt">{{ article.excerpt_en if get_language() == 'en' and article.excerpt_en else article.excerpt }}</p>
+          <p class="article-card__excerpt">{{ article.excerpt }}</p>
           <a href="{{ url('articles:detail', slug=article.slug) }}" class="article-card__link">{{ _('Читать') }} →</a>
         </div>
       </article>

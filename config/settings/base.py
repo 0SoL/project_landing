@@ -32,7 +32,7 @@ LOCAL_APPS = [
     'apps.seo',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS
+INSTALLED_APPS = DJANGO_APPS + ['parler'] + LOCAL_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -105,6 +105,17 @@ LANGUAGES = [
 LOCALE_PATHS = [
     BASE_DIR / 'locale',
 ]
+
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'ru'},
+        {'code': 'en'},
+    ),
+    'default': {
+        'fallback': 'ru',
+        'hide_untranslated': False,
+    }
+}
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'

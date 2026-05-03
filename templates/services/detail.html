@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% set breadcrumbs = [{'title': _('Услуги'), 'url': url('services:list')}, {'title': service.title_en if get_language() == 'en' and service.title_en else service.title, 'url': None}] %}
+{% set breadcrumbs = [{'title': _('Услуги'), 'url': url('services:list')}, {'title': service.title, 'url': None}] %}
 {% include 'components/breadcrumbs.html' %}
 
 <article class="service-detail">
@@ -10,9 +10,9 @@
           {% if service.cover_image %}style="background-image: url('{{ service.cover_image.url }}')"{% else %}style="background-image: url('./images/hero/service-detail.jpg')"{% endif %}>
     <div class="page-hero__overlay"></div>
     <div class="container">
-      <span class="service-detail__category">{{ service.category.name_en if get_language() == 'en' and service.category.name_en else service.category.name }}</span>
-      <h1 class="page-hero__title">{{ service.title_en if get_language() == 'en' and service.title_en else service.title }}</h1>
-      <p class="page-hero__sub">{{ service.short_description_en if get_language() == 'en' and service.short_description_en else service.short_description }}</p>
+      <span class="service-detail__category">{{ service.category.name }}</span>
+      <h1 class="page-hero__title">{{ service.title }}</h1>
+      <p class="page-hero__sub">{{ service.short_description }}</p>
     </div>
   </header>
 
@@ -21,7 +21,7 @@
     <div class="service-detail__main">
       <section class="service-detail__section">
         <h2>{{ _('О услуге') }}</h2>
-        <div class="rich-text">{{ (service.full_description_en if get_language() == 'en' and service.full_description_en else service.full_description) | safe }}</div>
+        <div class="rich-text">{{ (service.full_description) | safe }}</div>
       </section>
 
       {% if service.get_tasks_list() %}

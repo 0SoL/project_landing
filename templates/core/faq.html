@@ -13,9 +13,9 @@
   <div class="container faq-container">
     {% for item in items %}
     <details class="faq-item">
-      <summary class="faq-item__question">{{ item.question_en if get_language() == 'en' and item.question_en else item.question }}</summary>
+      <summary class="faq-item__question">{{ item.question }}</summary>
       <div class="faq-item__answer">
-        <p>{{ item.answer_en if get_language() == 'en' and item.answer_en else item.answer }}</p>
+        <p>{{ item.answer }}</p>
       </div>
     </details>
     {% else %}

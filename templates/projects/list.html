@@ -24,12 +24,12 @@
       <article class="project-card" data-type="{{ project.client_type }}">
         {% if project.cover_image %}
         <div class="project-card__img-wrap">
-          <img src="{{ project.cover_image.url }}" alt="{{ project.title_en if get_language() == 'en' and project.title_en else project.title }}" loading="lazy" class="project-card__img">
+          <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" loading="lazy" class="project-card__img">
         </div>
         {% endif %}
         <div class="project-card__body">
           <span class="project-card__badge">{{ project.get_client_type_display() }}</span>
-          <h2 class="project-card__title">{{ project.title_en if get_language() == 'en' and project.title_en else project.title }}</h2>
+          <h2 class="project-card__title">{{ project.title }}</h2>
           <p class="project-card__meta">{{ project.location }}, {{ project.year }}</p>
           {% if project.track_length_km %}
           <p class="project-card__stat"><span class="mono">{{ project.track_length_km }}</span> {{ _('км пути') }}</p>
