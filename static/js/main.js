@@ -1,24 +1,41 @@
 'use strict';
 
+// Mark document as JS-enabled (used by CSS to activate animate-on-scroll)
+document.documentElement.classList.add('js');
+
 // ============================================
-// HEADER SCROLL BEHAVIOR
+// HEADER SCROLL BEHAVIOR — direction-aware
 // ============================================
 const header = document.querySelector('.site-header');
 const isHomePage = document.body.dataset.page === 'home';
 
 if (header) {
   if (!isHomePage) {
-    // Non-home pages: header is solid from the start
     header.classList.add('site-header--scrolled');
   }
 
-  const onScroll = () => {
+  let lastScroll = 0;
+
+  window.addEventListener('scroll', () => {
+    const current = window.scrollY;
+
     if (isHomePage) {
-      // Homepage only: toggle solid background on scroll
-      header.classList.toggle('site-header--scrolled', window.scrollY > 60);
+      header.classList.toggle('site-header--scrolled', current > 60);
     }
-  };
-  window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Hide on scroll-down past 200px, reveal on scroll-up
+    if (current > 200) {
+      if (current > lastScroll) {
+        header.classList.add('is-hidden');
+      } else {
+        header.classList.remove('is-hidden');
+      }
+    } else {
+      header.classList.remove('is-hidden');
+    }
+
+    lastScroll = current;
+  }, { passive: true });
 }
 
 // ============================================
@@ -34,7 +51,6 @@ if (menuToggle && nav) {
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
-  // Close on nav link click (mobile)
   nav.querySelectorAll('.site-nav__link').forEach(link => {
     link.addEventListener('click', () => {
       nav.classList.remove('nav--open');
@@ -43,7 +59,6 @@ if (menuToggle && nav) {
     });
   });
 
-  // Close on outside click
   document.addEventListener('click', (e) => {
     if (nav.classList.contains('nav--open') && !nav.contains(e.target) && !menuToggle.contains(e.target)) {
       nav.classList.remove('nav--open');
@@ -60,19 +75,16 @@ function animateCounter(el) {
   const target = parseInt(el.dataset.counter, 10);
   if (isNaN(target)) return;
 
-  const duration = 1800; // ms
+  const duration = 1800;
   const startTime = performance.now();
 
   const tick = (now) => {
     const elapsed = now - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    // Ease out cubic
     const eased = 1 - Math.pow(1 - progress, 3);
     const current = Math.round(eased * target);
     el.textContent = current.toLocaleString('ru-KZ');
-    if (progress < 1) {
-      requestAnimationFrame(tick);
-    }
+    if (progress < 1) requestAnimationFrame(tick);
   };
 
   requestAnimationFrame(tick);
@@ -121,10 +133,12 @@ if (filterBtns.length && projectCards.length) {
 }
 
 // ============================================
-// SCROLL REVEAL (subtle entrance animations)
+// SCROLL REVEAL — .animate-in (cards, existing)
 // ============================================
-// inspired by Martinus AOS scroll reveal — extended to timeline and pillar cards
-const revealEls = document.querySelectorAll('.project-card, .service-card, .news-card, .article-card, .equipment-card, .value-item, .client-type-item, .steps__item, .timeline__item, .pillar-card');
+const revealEls = document.querySelectorAll(
+  '.project-card, .service-card, .news-card, .article-card, .equipment-card, ' +
+  '.value-item, .client-type-item, .steps__item, .timeline__item, .pillar-card'
+);
 
 if (revealEls.length && 'IntersectionObserver' in window) {
   const revealObserver = new IntersectionObserver(
@@ -140,4 +154,53 @@ if (revealEls.length && 'IntersectionObserver' in window) {
   );
 
   revealEls.forEach(el => revealObserver.observe(el));
+}
+
+// ============================================
+// SCROLL REVEAL — .animate-on-scroll (sections)
+// ============================================
+const scrollEls = document.querySelectorAll('.animate-on-scroll');
+
+if (scrollEls.length && 'IntersectionObserver' in window) {
+  const scrollObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          scrollObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -30px 0px' }
+  );
+
+  scrollEls.forEach(el => scrollObserver.observe(el));
+}
+
+// ============================================
+// CURSOR FOLLOWER — desktop only
+// ============================================
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  const cursorDot = document.createElement('div');
+  cursorDot.className = 'cursor-dot';
+  document.body.appendChild(cursorDot);
+
+  let mouseX = 0, mouseY = 0, dotX = 0, dotY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  (function animateCursor() {
+    dotX += (mouseX - dotX) * 0.12;
+    dotY += (mouseY - dotY) * 0.12;
+    cursorDot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+    requestAnimationFrame(animateCursor);
+  })();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => cursorDot.classList.add('is-hovering'));
+    el.addEventListener('mouseleave', () => cursorDot.classList.remove('is-hovering'));
+  });
 }

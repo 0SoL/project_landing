@@ -821,6 +821,29 @@ msgstr "Full scope of work for private-use railway tracks"
 msgid "Услуги скоро будут добавлены."
 msgstr "Services coming soon."
 
+
+# Hero headline split parts
+msgid "Строим"
+msgstr "We Build"
+
+msgid "железные дороги"
+msgstr "Railways"
+
+msgid "промышленного масштаба"
+msgstr "at Industrial Scale"
+
+msgid "Смотреть услуги"
+msgstr "See Services"
+
+msgid "Перейти к услугам"
+msgstr "Jump to Services"
+
+msgid "Ключевые показатели"
+msgstr "Key Figures"
+
+msgid "Главный экран"
+msgstr "Hero section"
+
 #: venv/lib/python3.12/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
 msgstr ""
