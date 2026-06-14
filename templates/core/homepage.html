@@ -2,34 +2,35 @@
 
 {% block content %}
 <!-- HERO -->
-<section class="hero">
+<section class="hero" aria-label="{{ _('Главный экран') }}">
   <div class="hero__overlay"></div>
   <div class="container hero__content">
-    <h1 class="hero__title">{{ _('Строим железные\u00a0дороги промышленного масштаба') }}</h1>
+    <h1 class="hero__title">{{ _('Строим') }} <span class="accent-word">{{ _('железные дороги') }}</span> {{ _('промышленного масштаба') }}</h1>
     <p class="hero__sub">{{ _('Проектирование, строительство и реконструкция железнодорожных путей для заводов, портов и терминалов Казахстана') }}</p>
     <div class="hero__actions">
       <a href="{{ url('projects:list') }}" class="btn btn--accent btn--lg">{{ _('Наши проекты') }}</a>
       <a href="{{ url('core:contacts') }}" class="btn btn--outline-light btn--lg">{{ _('Связаться') }}</a>
     </div>
+    <a href="#services" class="hero__scroll-hint" aria-label="{{ _('Перейти к услугам') }}">{{ _('Смотреть услуги') }} ↓</a>
   </div>
 </section>
 
 <!-- STATS -->
-<section class="stats" data-stats>
+<section class="stats" data-stats aria-label="{{ _('Ключевые показатели') }}">
   <div class="container stats__grid">
-    <div class="stats__item">
+    <div class="stats__item animate-on-scroll">
       <span class="stat-number" data-counter="{{ stats.projects_count }}">0</span>
       <span class="stat-label">{{ _('Проектов выполнено') }}</span>
     </div>
-    <div class="stats__item">
+    <div class="stats__item animate-on-scroll">
       <span class="stat-number" data-counter="{{ stats.track_km }}">0</span>
       <span class="stat-label">{{ _('Км пути уложено') }}</span>
     </div>
-    <div class="stats__item">
+    <div class="stats__item animate-on-scroll">
       <span class="stat-number" data-counter="{{ stats.years_on_market }}">0</span>
       <span class="stat-label">{{ _('Лет на рынке') }}</span>
     </div>
-    <div class="stats__item">
+    <div class="stats__item animate-on-scroll">
       <span class="stat-number" data-counter="{{ stats.employees_count }}">0</span>
       <span class="stat-label">{{ _('Специалистов') }}</span>
     </div>
@@ -37,12 +38,13 @@
 </section>
 
 <!-- SERVICES -->
-<section class="section services-overview">
+<section class="section services-overview" id="services">
   <div class="container">
-    <h2 class="section__title">{{ _('Что мы делаем') }}</h2>
+    <h2 class="section__title animate-on-scroll">{{ _('Что мы делаем') }}</h2>
     <div class="services-overview__grid">
       {% for cat in service_categories %}
       <div class="service-card">
+        <span class="service-card__bg-number" aria-hidden="true">0{{ loop.index }}</span>
         <h3 class="service-card__title">{{ cat.name }}</h3>
         <ul class="service-card__list">
           {% for svc in cat.services.all()[:3] %}
@@ -58,9 +60,9 @@
 
 <!-- FEATURED PROJECTS -->
 {% if featured_projects %}
-<section class="section section--dark featured-projects">
+<section class="section section--dark featured-projects" id="featured-projects">
   <div class="container">
-    <h2 class="section__title section__title--light">{{ _('Ключевые проекты') }}</h2>
+    <h2 class="section__title section__title--light animate-on-scroll">{{ _('Ключевые проекты') }}</h2>
     <div class="projects-grid">
       {% for project in featured_projects %}
       <article class="project-card">
@@ -91,7 +93,7 @@
 <!-- CLIENT TYPES -->
 <section class="section client-types">
   <div class="container">
-    <h2 class="section__title">{{ _('Кто наши клиенты') }}</h2>
+    <h2 class="section__title animate-on-scroll">{{ _('Кто наши клиенты') }}</h2>
     <div class="client-types__grid">
       <div class="client-type-item">
         <img src="" alt="{{ _('Порт') }}" class="client-type__icon" width="40" height="40">
@@ -120,7 +122,7 @@
 <!-- HOW WE WORK -->
 <section class="section section--bg how-we-work">
   <div class="container">
-    <h2 class="section__title">{{ _('Как мы работаем') }}</h2>
+    <h2 class="section__title animate-on-scroll">{{ _('Как мы работаем') }}</h2>
     <ol class="steps">
       <li class="steps__item">
         <span class="steps__num">01</span>
@@ -155,7 +157,7 @@
 {% if latest_news %}
 <section class="section latest-news">
   <div class="container">
-    <h2 class="section__title">{{ _('Последние новости') }}</h2>
+    <h2 class="section__title animate-on-scroll">{{ _('Последние новости') }}</h2>
     <div class="news-grid">
       {% for article in latest_news %}
       <article class="news-card">
