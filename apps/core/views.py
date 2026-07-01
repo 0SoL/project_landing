@@ -4,7 +4,6 @@ from django.conf import settings
 from .models import CompanyStats, FAQItem
 from .forms import ContactForm
 from apps.projects.models import Project
-from apps.services.models import Service, ServiceCategory
 from apps.articles.models import Article
 from apps.seo.jsonld import organization_schema, faq_schema, to_json
 
@@ -12,12 +11,10 @@ from apps.seo.jsonld import organization_schema, faq_schema, to_json
 def homepage(request):
     stats = CompanyStats.load()
     featured_projects = Project.objects.filter(is_featured=True, is_published=True)[:3]
-    service_categories = ServiceCategory.objects.prefetch_related('services').order_by('order')
     latest_news = Article.objects.filter(is_published=True, category__slug='novosti')[:3]
     context = {
         'stats': stats,
         'featured_projects': featured_projects,
-        'service_categories': service_categories,
         'latest_news': latest_news,
         'meta_title': 'Строительство и реконструкция железных дорог в Казахстане',
         'meta_description': 'Проектирование, строительство и реконструкция железнодорожных путей для промышленных предприятий, портов и терминалов Казахстана. Более 15 лет опыта.',

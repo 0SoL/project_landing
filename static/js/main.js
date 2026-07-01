@@ -136,8 +136,8 @@ if (filterBtns.length && projectCards.length) {
 // SCROLL REVEAL — .animate-in (cards, existing)
 // ============================================
 const revealEls = document.querySelectorAll(
-  '.project-card, .service-card, .news-card, .article-card, .equipment-card, ' +
-  '.value-item, .client-type-item, .steps__item, .timeline__item, .pillar-card'
+  '.project-card, .news-card, .article-card, .equipment-card, ' +
+  '.value-item, .timeline__item, .pillar-card'
 );
 
 if (revealEls.length && 'IntersectionObserver' in window) {

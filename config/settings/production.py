@@ -1,5 +1,7 @@
 from .base import *
 import environ
+import dj_database_url
+import os
 
 env = environ.Env()
 
@@ -9,6 +11,12 @@ ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 DATABASES = {
     'default': env.db('DATABASE_URL')
 }
+
+# DATABASES = {
+#     "default": dj_database_url.config(
+#         default=os.getenv("DATABASE_URL")
+#     )
+# }
 
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True

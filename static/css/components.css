@@ -495,164 +495,6 @@
 }
 
 /* ============================================
-   SERVICE CARDS
-   ============================================ */
-
-.services-overview__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-xl);
-}
-
-.service-card {
-  position: relative;
-  overflow: hidden;
-  padding: var(--space-xl);
-  background-color: var(--color-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border);
-  display: flex;
-  flex-direction: column;
-  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
-}
-
-.service-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: var(--color-accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.35s ease;
-}
-
-.service-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  border-color: rgba(200, 146, 42, 0.25);
-}
-
-.service-card:hover::before {
-  transform: scaleX(1);
-}
-
-.service-card__bg-number {
-  position: absolute;
-  bottom: -16px;
-  right: 16px;
-  font-size: 7rem;
-  font-weight: 900;
-  font-family: var(--font-mono);
-  color: var(--color-border);
-  opacity: 0.5;
-  line-height: 1;
-  pointer-events: none;
-  user-select: none;
-  transition: opacity 0.35s ease;
-}
-
-.service-card:hover .service-card__bg-number {
-  opacity: 0.1;
-}
-
-.service-card__title {
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
-  margin-bottom: var(--space-md);
-}
-
-.service-card__list {
-  margin-bottom: var(--space-lg);
-  flex: 1;
-}
-
-.service-card__list li {
-  padding-block: 0.4rem;
-  border-bottom: 1px solid var(--color-border);
-  font-size: 0.9rem;
-}
-
-.service-card__list li a:hover {
-  color: var(--color-accent);
-}
-
-.service-card__link {
-  color: var(--color-accent);
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-top: var(--space-lg);
-  align-self: flex-start;
-}
-
-/* ============================================
-   CLIENT TYPES
-   ============================================ */
-
-.client-types__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-xl);
-  padding-top: var(--space-sm);
-}
-
-.client-type-item {
-  padding: var(--space-xl);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-}
-
-.client-type__icon {
-  width: 40px;
-  height: 40px;
-  object-fit: contain;
-  margin-bottom: var(--space-md);
-  display: block;
-}
-
-.client-type-item h3 {
-  font-size: 1.25rem;
-  margin-bottom: var(--space-sm);
-}
-
-.client-type-item p {
-  font-size: 0.9rem;
-  color: var(--color-muted);
-}
-
-/* ============================================
-   HOW WE WORK — STEPS
-   ============================================ */
-
-.steps {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: var(--space-xl);
-  counter-reset: step;
-}
-
-.steps__item {
-  position: relative;
-}
-
-.steps__num {
-  font-family: var(--font-mono);
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--color-accent);
-  opacity: 0.6;
-  line-height: 1;
-  display: block;
-  margin-bottom: var(--space-md);
-}
-
-.steps__title {
-  font-size: 1.25rem;
-  margin-bottom: var(--space-sm);
-}
-
-/* ============================================
    NEWS CARDS
    ============================================ */
 
@@ -2006,8 +1848,685 @@
     text-align: center;
   }
   .projects-grid,
-  .news-grid,
-  .services-overview__grid {
+  .news-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   RAILWAY TIMELINE — scroll-drawn vertical track
+   ============================================ */
+
+.railway {
+  --railway-rail-col: 80px;
+  --railway-muted: rgba(26, 26, 26, 0.14);
+  --railway-active: var(--color-accent);
+  --railway-sleeper-gap: 28px;
+  --railway-progress: 0;
+  position: relative;
+  background-color: var(--color-bg);
+  padding-block: var(--section-pad);
+  overflow: hidden;
+}
+
+.railway::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(200, 146, 42, 0.07), transparent 55%),
+    radial-gradient(ellipse at 88% 100%, rgba(26, 26, 26, 0.05), transparent 60%);
+  pointer-events: none;
+}
+
+.railway__intro {
+  position: relative;
+  text-align: center;
+  max-width: 760px;
+  margin-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+.railway__eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+.railway__eyebrow::before {
+  content: '— ';
+  opacity: 0.6;
+}
+
+.railway__title {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  margin-bottom: var(--space-lg);
+}
+
+.railway__lead {
+  color: var(--color-muted);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  max-width: 620px;
+  margin-inline: auto;
+}
+
+.railway__layout {
+  position: relative;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.railway__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--container-pad));
+  width: var(--railway-rail-col);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.railway__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.railway__rail-line {
+  fill: none;
+  stroke-linecap: square;
+  vector-effect: non-scaling-stroke;
+}
+
+.railway__rail-line--muted {
+  stroke: var(--railway-muted);
+  stroke-width: 2;
+}
+
+.railway__rail-line--active {
+  stroke: var(--railway-active);
+  stroke-width: 2.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--railway-progress));
+  filter: drop-shadow(0 0 0.4px rgba(200, 146, 42, 0.6));
+}
+
+.railway__sleepers-group line {
+  stroke-linecap: butt;
+  vector-effect: non-scaling-stroke;
+}
+
+.railway__sleepers-group--muted line {
+  stroke: var(--railway-muted);
+  stroke-width: 3;
+}
+
+.railway__sleepers-group--active line {
+  stroke: var(--color-primary);
+  stroke-width: 3.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity 0.18s ease, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.railway__sleepers-group--active line.is-laid {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.railway__stations {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4rem, 12vw, 9rem);
+  padding-block: clamp(2rem, 5vw, 4rem);
+  padding-left: calc(var(--railway-rail-col) + clamp(1rem, 4vw, 2.5rem));
+}
+
+.railway-station {
+  position: relative;
+}
+
+.railway-station__marker {
+  position: absolute;
+  top: 50%;
+  left: calc(-1 * (var(--railway-rail-col) / 2 + clamp(1rem, 4vw, 2.5rem)));
+  transform: translate(-50%, -50%);
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.railway-station__dot {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  background: var(--color-bg);
+  border: 2px solid var(--color-accent);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+  z-index: 2;
+}
+
+.railway-station.is-active .railway-station__dot {
+  transform: scale(1);
+  background: var(--color-accent);
+  box-shadow: 0 0 0 4px rgba(200, 146, 42, 0.18);
+}
+
+.railway-station__pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-accent);
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.railway-station.is-active .railway-station__pulse {
+  animation: railwayPulse 1.6s ease-out 0.15s 1;
+}
+
+@keyframes railwayPulse {
+  0%   { opacity: 0.55; transform: scale(0.6); }
+  100% { opacity: 0;    transform: scale(2.4); }
+}
+
+.railway-station__card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: clamp(1.25rem, 2.4vw, 2rem);
+  box-shadow: 0 18px 48px -32px rgba(26, 26, 26, 0.4);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
+              transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.05s,
+              border-color 0.3s ease;
+  max-width: 560px;
+}
+
+.railway-station__card::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -1px;
+  width: 3px;
+  height: 36px;
+  background: var(--color-accent);
+  border-radius: 2px;
+  transform: translateY(-50%) scaleY(0);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+
+.railway-station.is-active .railway-station__card {
+  opacity: 1;
+  transform: translateY(0);
+  border-color: rgba(200, 146, 42, 0.35);
+}
+
+.railway-station.is-active .railway-station__card::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.railway-station__num {
+  display: block;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-sm);
+  font-weight: 700;
+}
+
+.railway-station__title {
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  margin-bottom: var(--space-sm);
+}
+
+.railway-station__desc {
+  color: var(--color-muted);
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.6;
+}
+
+/* Wide-screen: rail centered, cards alternate left/right */
+@media (min-width: 960px) {
+  .railway__rail {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .railway__stations {
+    padding-left: 0;
+    row-gap: clamp(4rem, 10vw, 8rem);
+  }
+  .railway-station {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--railway-rail-col) minmax(0, 1fr);
+    column-gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: center;
+  }
+  .railway-station__card {
+    max-width: none;
+  }
+  .railway-station:nth-child(odd) .railway-station__card {
+    grid-column: 1;
+    text-align: right;
+    transform: translate(28px, 0);
+  }
+  .railway-station:nth-child(odd) .railway-station__card::before {
+    left: auto;
+    right: -1px;
+  }
+  .railway-station:nth-child(even) .railway-station__card {
+    grid-column: 3;
+    transform: translate(-28px, 0);
+  }
+  .railway-station.is-active .railway-station__card {
+    transform: translate(0, 0);
+  }
+  .railway-station__marker {
+    position: relative;
+    inset: auto;
+    left: auto;
+    top: auto;
+    transform: none;
+    grid-column: 2;
+    justify-self: center;
+    align-self: center;
+  }
+}
+
+@media (max-width: 540px) {
+  .railway {
+    --railway-rail-col: 56px;
+    --railway-sleeper-gap: 22px;
+  }
+  .railway-station__marker {
+    left: calc(-1 * clamp(0.75rem, 4vw, 2rem) - var(--railway-rail-col) / 2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .railway {
+    --railway-progress: 1;
+  }
+  .railway-station,
+  .railway-station__card,
+  .railway-station__dot {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .railway-station__card::before {
+    transform: translateY(-50%) scaleY(1) !important;
+  }
+  .railway__sleepers-group--active line {
+    opacity: 1 !important;
+    transform: scaleX(1) !important;
+  }
+  .railway-station__pulse {
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   METRO SERVICES — interactive route scheme
+   ============================================ */
+
+.metro {
+  --metro-progress: 0;
+  --metro-muted: rgba(255, 255, 255, 0.14);
+  --metro-active: var(--color-accent);
+  --metro-surface: #161616;
+  --metro-bg: var(--color-dark);
+  position: relative;
+  background: var(--metro-bg);
+  color: var(--color-surface);
+  padding-block: var(--section-pad);
+  overflow: hidden;
+}
+
+.metro::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(200, 146, 42, 0.10), transparent 45%),
+    radial-gradient(circle at 88% 82%, rgba(200, 146, 42, 0.05), transparent 50%),
+    linear-gradient(180deg, rgba(255,255,255,0.015), rgba(0,0,0,0.06));
+  pointer-events: none;
+}
+
+.metro__head {
+  position: relative;
+  text-align: center;
+  max-width: 760px;
+  margin-bottom: clamp(2.5rem, 6vw, 5rem);
+}
+
+.metro__eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+.metro__eyebrow::before {
+  content: '— ';
+  opacity: 0.6;
+}
+
+.metro__title {
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  color: var(--color-surface);
+  margin-bottom: var(--space-lg);
+}
+
+.metro__lead {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  max-width: 560px;
+  margin-inline: auto;
+}
+
+.metro__board {
+  position: relative;
+}
+
+/* --- ROUTE --- */
+
+.metro-route {
+  position: relative;
+  aspect-ratio: 1200 / 320;
+  width: 100%;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.metro-route__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.metro-route__path {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.metro-route__path--muted {
+  stroke: var(--metro-muted);
+  stroke-width: 4;
+}
+
+.metro-route__path--active {
+  stroke: var(--metro-active);
+  stroke-width: 5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--metro-progress));
+  filter: drop-shadow(0 0 6px rgba(200, 146, 42, 0.45));
+}
+
+.metro-route__ring {
+  fill: var(--metro-bg);
+  stroke: rgba(255, 255, 255, 0.4);
+  stroke-width: 2.5;
+  transition: stroke 0.35s ease, r 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.metro-route__core {
+  fill: rgba(255, 255, 255, 0.5);
+  transition: fill 0.35s ease, r 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.metro-route__node.is-active .metro-route__ring {
+  stroke: var(--metro-active);
+  r: 18;
+}
+
+.metro-route__node.is-active .metro-route__core {
+  fill: var(--metro-active);
+}
+
+.metro-route__train {
+  fill: var(--metro-active);
+  stroke: var(--color-surface);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 10px rgba(200, 146, 42, 0.6));
+  pointer-events: none;
+}
+
+/* --- BUTTONS (HTML overlay for keyboard a11y) --- */
+
+.metro-route__buttons {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.metro-btn {
+  position: absolute;
+  left: var(--metro-x);
+  top: var(--metro-y);
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.75);
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.metro-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 6px;
+}
+
+.metro-btn__label-wrap {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 14px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.metro-btn__index {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--color-accent);
+  opacity: 0;
+  transform: translateY(3px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.metro-btn__name {
+  font-size: clamp(0.78rem, 1vw, 0.92rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  transition: color 0.25s ease;
+}
+
+.metro-btn:hover .metro-btn__name {
+  color: var(--color-surface);
+}
+
+.metro-btn:hover .metro-btn__index {
+  opacity: 0.85;
+  transform: translateY(0);
+}
+
+.metro-btn.is-active .metro-btn__label-wrap {
+  transform: translate(-50%, -4px);
+}
+
+.metro-btn.is-active .metro-btn__name {
+  color: var(--color-surface);
+}
+
+.metro-btn.is-active .metro-btn__index {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- PANELS --- */
+
+.metro-panels {
+  position: relative;
+  display: grid;
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.metro-panel {
+  grid-area: 1 / 1;
+  background: var(--metro-surface);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.metro-panel[hidden] {
+  display: grid;
+}
+
+.metro-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--color-accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+
+.metro-panel.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.metro-panel.is-active::before {
+  transform: scaleY(1);
+}
+
+.metro-panel__num {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+.metro-panel__title {
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  color: var(--color-surface);
+  margin-bottom: var(--space-md);
+}
+
+.metro-panel__desc {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.65;
+  margin-bottom: var(--space-lg);
+}
+
+.metro-panel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.metro-panel__tags li {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  background: rgba(200, 146, 42, 0.08);
+  border: 1px solid rgba(200, 146, 42, 0.25);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* --- RESPONSIVE --- */
+
+@media (max-width: 720px) {
+  .metro-route {
+    aspect-ratio: 1200 / 360;
+  }
+  .metro-btn__name {
+    font-size: 0.72rem;
+  }
+  .metro-btn__label-wrap {
+    bottom: calc(100% + 8px);
+  }
+  .metro-btn__index { display: none; }
+}
+
+@media (max-width: 480px) {
+  .metro-route {
+    aspect-ratio: 1200 / 440;
+  }
+  .metro-btn__name {
+    font-size: 0.64rem;
+    letter-spacing: -0.005em;
+  }
+}
+
+/* --- REDUCED MOTION --- */
+
+@media (prefers-reduced-motion: reduce) {
+  .metro-route__path--active,
+  .metro-route__ring,
+  .metro-route__core,
+  .metro-route__train,
+  .metro-btn,
+  .metro-btn__index,
+  .metro-panel,
+  .metro-panel::before {
+    transition: none !important;
   }
 }
